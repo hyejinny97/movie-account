@@ -44,29 +44,33 @@ def detail(request, pk):
 @login_required
 def update(request, pk):
     review = Review.objects.get(pk=pk)
+    if request.user == review.writer:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, instance=review)
+            if form.is_valid():
+                review = form.save()
+                review.grade = request.POST.get('reviewStar')
+                review.save()
+                return redirect('reviews:detail', review.pk)
+        else:
+            form = ReviewForm(instance=review)
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=review)
-        if form.is_valid():
-            review = form.save()
-            review.grade = request.POST.get('reviewStar')
-            review.save()
-            return redirect('reviews:detail', review.pk)
+        context = {
+            'form': form,
+            'review': review,
+        }
+
+        return render(request, 'reviews/update.html', context)
     else:
-        form = ReviewForm(instance=review)
-
-    context = {
-        'form': form,
-        'review': review,
-    }
-
-    return render(request, 'reviews/update.html', context)
+        return render(request, 'no_access.html')
 
 # 글 삭제
 @login_required
 def delete(request, pk):
     review = Review.objects.get(pk=pk)
+    if request.user == review.writer:
+        review.delete()
 
-    review.delete()
-
-    return redirect('reviews:index')
+        return redirect('reviews:index')
+    else:
+        return render(request, 'no_access.html')
