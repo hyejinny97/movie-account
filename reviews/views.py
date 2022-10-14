@@ -20,6 +20,7 @@ def create(request):
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.writer = request.user
+            review.grade = request.POST.get('reviewStar')
             review.save()
             return redirect('reviews:detail', review.pk)
     else:
@@ -47,7 +48,9 @@ def update(request, pk):
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
-            form.save()
+            review = form.save()
+            review.grade = request.POST.get('reviewStar')
+            review.save()
             return redirect('reviews:detail', review.pk)
     else:
         form = ReviewForm(instance=review)

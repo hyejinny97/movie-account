@@ -2,12 +2,11 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
-  {% if request.user.is_authenticated  %}
-    {{ user }}
+  {% if request.user.is_authenticated %}
   {% else %}
-      <p>반갑습니다.로그인 부탁드립니다.</p>
+    <p>반갑습니다.로그인 부탁드립니다.</p>
   {% endif %}
-  
+  <h1 class='text-center my-3'>회원 목록</h1>
   <table class="table">
     <thead class='talbe-dark'>
       <tr>

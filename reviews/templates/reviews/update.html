@@ -8,7 +8,23 @@
       <form action="{% url 'reviews:update' review.pk %}" method='POST'>
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn btn-primary" type="submit" value="리뷰 수정">
+        <div id="myform">
+          <input type="hidden" value='{{ review.grade }}' id='grade'>
+          <fieldset>
+            <span class="text-bold">별점을 선택해주세요</span>
+            <input type="radio" name="reviewStar" value="5" id="rate1" class='review-star'>
+            <label for="rate1">★</label>
+            <input type="radio" name="reviewStar" value="4" id="rate2" class='review-star'>
+            <label for="rate2">★</label>
+            <input type="radio" name="reviewStar" value="3" id="rate3" class='review-star'>
+            <label for="rate3">★</label>
+            <input type="radio" name="reviewStar" value="2" id="rate4" class='review-star'>
+            <label for="rate4">★</label>
+            <input type="radio" name="reviewStar" value="1" id="rate5" class='review-star'>
+            <label for="rate5">★</label>
+          </fieldset>
+        </div>
+        <input class="btn btn-primary my-3" type="submit" value="리뷰 수정">
       </form>
     </div>
   </div>

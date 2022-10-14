@@ -2,14 +2,31 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <h1 class='text-center my-3'>리뷰 작성하기</h1>
-    <div class="card shadow p-3 mb-5 bg-body rounded">
-        <div class="card-body">
-        <form action="{% url 'reviews:create' %}" method='POST'>
-            {% csrf_token %}
-            {% bootstrap_form review_form %}
-            <input class="btn btn-primary" type="submit" value="리뷰 작성">
-        </form>
+  <h1 class='text-center my-3'>리뷰 작성하기</h1>
+  <div class="card shadow p-3 mb-5 bg-body rounded">
+    <div class="card-body">
+      <form action="{% url 'reviews:create' %}" method='POST'>
+        {% csrf_token %}
+        {% bootstrap_form review_form %}
+
+        {% comment %} https://velog.io/@hellocdpa/220305-%EB%A6%AC%EB%B7%B0-%EB%B3%84%EC%A0%90-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0 {% endcomment %}
+        <div id="myform">
+            <fieldset>
+              <span class="text-bold">별점을 선택해주세요</span>
+              <input type="radio" name="reviewStar" value="5" id="rate1">
+              <label for="rate1">★</label>
+              <input type="radio" name="reviewStar" value="4" id="rate2">
+              <label for="rate2">★</label>
+              <input type="radio" name="reviewStar" value="3" id="rate3">
+              <label for="rate3">★</label>
+              <input type="radio" name="reviewStar" value="2" id="rate4">
+              <label for="rate4">★</label>
+              <input type="radio" name="reviewStar" value="1" id="rate5">
+              <label for="rate5">★</label>
+            </fieldset>
         </div>
+        <input class="btn btn-primary my-3" type="submit" value="리뷰 작성">
+      </form>
     </div>
+  </div>
 {% endblock content %}

@@ -13,6 +13,7 @@
         <th scope="col">리뷰제목</th>
         <th scope="col">영화제목</th>
         <th scope="col">별점</th>
+        <th scope="col">작성자</th>
         <th scope="col">작성시간</th>
       </tr>
     </thead>
@@ -24,8 +25,12 @@
             <a href="{% url 'reviews:detail' review.pk %}">{{ review.title }}</a>
           </td>
           <td scope="row">{{ review.movie_name }}</td>
-          <td scope="row">{{ review.grade }}</td>
-          <td scope="row">{{ review.created_at }}</td>
+          <td scope="row">
+            <i class="bi bi-star-fill star"></i>
+            {{ review.grade }}/5</td>
+          <td scope="row">{{ review.writer.username }}</td>
+          <td scope="row">{{ review.created_at|date:'Y-m-d A h' }}시
+            {{ review.created_at|date:'i' }}분</td>
         </tr>
       {% endfor %}
     </tbody>

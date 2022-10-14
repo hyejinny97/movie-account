@@ -2,19 +2,30 @@
 {% load django_bootstrap5 %}
 {% block content %}
   <h1 class='text-center my-3'>회원상세 정보</h1>
-  <h3>{{ user.username }}님의 정보입니다.</h3>
+  <p class='text-center my-3'>{{ user.username }}님의 정보입니다.</p>
 
-  <p>{{ user.full_name }}</p>
-  <p>{{ user.email }}</p>
-  <p>{{ user.last_login }}</p>
-
-  {% if is_staff %}
-    <p>스탭입니당!</p>
-  {% else %}
-    <p>일반회원입니당!</p>
-  {% endif %}
-  <div class='d-flex justify-content-between'>
-    <a class="btn btn-success" href="{% url 'accounts:update' %}" role="button">프로필 수정</a>
-    <a class="btn btn-danger" href="{% url 'accounts:delete' %}" role="button">계정 탈퇴</a>
+  <div class="card my-3">
+    <div class="card-body">
+      <p>사용자이름:
+        {{ user.full_name }}</p>
+      <p>이메일:
+        {{ user.email }}</p>
+      <p>마지막 로그인:
+        {{ user.last_login|date:'Y-m-d A h' }}시
+        {{ user.last_login|date:'i' }}분
+      </p>
+      <p>권한:
+        {% if user.is_superuser %}
+          관리자입니당!
+        {% else %}
+          일반회원입니당!
+        {% endif %}
+      </p>
+    </div>
   </div>
+  <div class='d-flex justify-content-between'>
+    <a class="btn btn-success w-100 me-3" href="{% url 'accounts:update' %}" role="button">프로필 수정</a>
+    <a class="btn btn-danger w-100" href="{% url 'accounts:delete' %}" role="button">계정 탈퇴</a>
+  </div>
+
 {% endblock content %}
